@@ -8,12 +8,10 @@ RUN echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/so
 
 ENV PATH $HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH
 
-RUN apt-get -y update
-
-RUN apt-get -y install git wget
+RUN apt-get -y -q update
 
 ## Install packages to compile php and Force some packages to be installed
-RUN apt-get install -y build-essential libxml2-dev libssl-dev \
+RUN apt-get install -y -q git wget build-essential libxml2-dev libssl-dev \
     pkg-config \
     libcurl4-gnutls-dev libjpeg-dev libpng12-dev libmcrypt-dev \
     libreadline-dev libtidy-dev libxslt1-dev autoconf \
@@ -35,6 +33,8 @@ ENV PATH /root/.phpenv/shims:/root/.phpenv/bin:$PATH
 RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/php-build
 RUN /root/.phpenv/plugins/php-build/install.sh
 
+RUN rm /usr/local/share/php-build/plugins.d/apc.sh && rm /usr/local/share/php-build/plugins.d/pyrus.sh && /usr/local/share/php-build/plugins.d/xdebug.sh
+
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \
     wget http://getcomposer.org/composer.phar && \
@@ -44,9 +44,13 @@ RUN cd $HOME && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /usr/local/bin/phpunit
 
-RUN phpenv rehash
-RUN phpenv install 5.5.26
+RUN phpenv install 5.3.29
 RUN phpenv install 5.4.42
+RUN phpenv install 5.5.26
 RUN phpenv install 5.6.10
 
 RUN rm -rf /tmp/* /var/tmp/*
+
+RUN phpenv rehash
+
+RUN phpenv versions

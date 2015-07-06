@@ -1,6 +1,6 @@
-MAINTAINER Nikita Tarasov <nikita@mygento.ru>
-
 FROM debian:jessie
+
+MAINTAINER Nikita Tarasov <nikita@mygento.ru>
 
 RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/sources.list
 RUN echo 'deb-src http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
@@ -46,5 +46,7 @@ RUN cd $HOME && \
 
 RUN phpenv rehash
 RUN phpenv install 5.5.26
+RUN phpenv install 5.4.42
+RUN phpenv install 5.6.10
 
 RUN rm -rf /tmp/* /var/tmp/*

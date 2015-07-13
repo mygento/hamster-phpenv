@@ -45,9 +45,9 @@ RUN cd $HOME && \
     mv phpunit.phar /usr/local/bin/phpunit
 
 #RUN phpenv install 5.3.29 not compiling
-RUN phpenv install 5.4.42
-RUN phpenv install 5.5.26
-RUN phpenv install 5.6.10
+RUN phpenv install 5.4.43
+RUN phpenv install 5.5.27
+RUN phpenv install 5.6.11
 
 RUN rm -rf /tmp/* /var/tmp/*
 

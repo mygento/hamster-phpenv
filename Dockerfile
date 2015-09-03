@@ -45,9 +45,9 @@ RUN cd $HOME && \
     mv phpunit.phar /usr/local/bin/phpunit
 
 #RUN phpenv install 5.3.29 not compiling
-RUN MAKEFLAGS=' -j8' phpenv install 5.4.43
-RUN MAKEFLAGS=' -j8' phpenv install 5.5.27
-RUN MAKEFLAGS=' -j8' phpenv install 5.6.11
+RUN MAKEFLAGS=' -j8' phpenv install 5.4.44
+RUN MAKEFLAGS=' -j8' phpenv install 5.5.28
+RUN MAKEFLAGS=' -j8' phpenv install 5.6.12
 
 RUN rm -rf /tmp/* /var/tmp/*
 

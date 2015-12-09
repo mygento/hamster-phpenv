@@ -34,11 +34,11 @@ RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/p
 RUN /root/.phpenv/plugins/php-build/install.sh
 
 RUN rm /usr/local/share/php-build/plugins.d/apc.sh && \
-    rm /usr/local/share/php-build/plugins.d/xdebug.sh && \
+    # rm /usr/local/share/php-build/plugins.d/xdebug.sh && \
     rm /usr/local/share/php-build/plugins.d/uprofiler.sh && \	
     rm /usr/local/share/php-build/plugins.d/xhprof.sh && \
     rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/apc.sh && \
-    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xdebug.sh && \
+    # rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xdebug.sh && \
     rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/uprofiler.sh && \
     rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xhprof.sh
 

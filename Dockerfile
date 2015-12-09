@@ -11,7 +11,7 @@ ENV PATH $HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH
 RUN apt-get -y -q update
 
 ## Install packages to compile php and Force some packages to be installed
-RUN apt-get install -y -q git wget build-essential libxml2-dev libssl-dev \
+RUN apt-get install -y -q git wget unzip build-essential libxml2-dev libssl-dev \
     pkg-config \
     libcurl4-gnutls-dev libjpeg-dev libpng12-dev libmcrypt-dev \
     libreadline-dev libtidy-dev libxslt1-dev autoconf \
@@ -33,7 +33,7 @@ ENV PATH /root/.phpenv/shims:/root/.phpenv/bin:$PATH
 RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/php-build
 RUN /root/.phpenv/plugins/php-build/install.sh
 
-RUN rm /usr/local/share/php-build/plugins.d/apc.sh && rm /usr/local/share/php-build/plugins.d/pyrus.sh && rm /usr/local/share/php-build/plugins.d/xdebug.sh
+RUN rm /usr/local/share/php-build/plugins.d/apc.sh && rm /usr/local/share/php-build/plugins.d/xdebug.sh
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \

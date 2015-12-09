@@ -23,7 +23,7 @@ RUN apt-get install -y -q git wget unzip build-essential libxml2-dev libssl-dev 
 # PHPENV.
 ##
 
-RUN git clone https://github.com/CHH/phpenv.git /tmp/phpenv
+RUN rm -fR /root/.phpenv && rm -fR /tmp/phpenv && git clone https://github.com/CHH/phpenv.git /tmp/phpenv
 RUN /tmp/phpenv/bin/phpenv-install.sh
 RUN scp /tmp/phpenv/extensions/* /root/.phpenv/libexec/
 
@@ -33,7 +33,14 @@ ENV PATH /root/.phpenv/shims:/root/.phpenv/bin:$PATH
 RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/php-build
 RUN /root/.phpenv/plugins/php-build/install.sh
 
-RUN rm /usr/local/share/php-build/plugins.d/apc.sh && rm /usr/local/share/php-build/plugins.d/xdebug.sh
+RUN rm /usr/local/share/php-build/plugins.d/apc.sh && \
+    rm /usr/local/share/php-build/plugins.d/xdebug.sh && \
+    rm /usr/local/share/php-build/plugins.d/uprofiler.sh && \	
+    rm /usr/local/share/php-build/plugins.d/xhprof.sh && \
+    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/apc.sh && \
+    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xdebug.sh && \
+    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/uprofiler.sh && \
+    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xhprof.sh
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \

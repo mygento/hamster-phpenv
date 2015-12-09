@@ -47,7 +47,7 @@ RUN cd $HOME && \
 #RUN phpenv install 5.3.29 not compiling
 RUN MAKEFLAGS=' -j8' phpenv install 5.4.45
 RUN MAKEFLAGS=' -j8' phpenv install 5.5.30
-RUN MAKEFLAGS=' -j8' phpenv install 5.6.14
+RUN MAKEFLAGS=' -j8' phpenv install 5.6.16
 
 RUN rm -rf /tmp/* /var/tmp/*
 

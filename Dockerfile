@@ -52,7 +52,7 @@ RUN cd $HOME && \
     mv phpunit.phar /usr/local/bin/phpunit
 
 #RUN phpenv install 5.3.29 not compiling
-RUN MAKEFLAGS=' -j8' phpenv install 5.4.44
+RUN MAKEFLAGS=' -j8' phpenv install 5.4.45
 RUN MAKEFLAGS=' -j8' phpenv install 5.5.30
 RUN MAKEFLAGS=' -j8' phpenv install 5.6.16
 

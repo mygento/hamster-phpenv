@@ -1,12 +1,12 @@
 FROM debian:jessie
 
 MAINTAINER Nikita Tarasov <nikita@mygento.ru>
-
-RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/sources.list
-RUN echo 'deb-src http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list
-RUN echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/sources.list
-
+ENV DEBIAN_FRONTEND noninteractive
 ENV PATH $HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH
+
+RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/sources.list && \
+    echo 'deb-src http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list && \
+    echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/sources.list
 
 RUN apt-get -y -q update
 
@@ -23,11 +23,12 @@ RUN apt-get install -y -q git wget unzip build-essential libxml2-dev libssl-dev 
 # PHPENV.
 ##
 
-RUN rm -fR /root/.phpenv && rm -fR /tmp/phpenv && git clone https://github.com/CHH/phpenv.git /tmp/phpenv
-RUN /tmp/phpenv/bin/phpenv-install.sh
-RUN scp /tmp/phpenv/extensions/* /root/.phpenv/libexec/
-
-RUN echo 'eval "$(phpenv init -)"' >> /root/.bashrc
+RUN rm -fR /root/.phpenv && rm -fR /tmp/phpenv && \
+    git clone https://github.com/CHH/phpenv.git /tmp/phpenv && \
+    /tmp/phpenv/bin/phpenv-install.sh && \
+    scp /tmp/phpenv/extensions/* /root/.phpenv/libexec/ && \
+    echo 'eval "$(phpenv init -)"' >> /root/.bashrc
+    
 ENV PATH /root/.phpenv/shims:/root/.phpenv/bin:$PATH
 
 RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/php-build
@@ -52,11 +53,9 @@ RUN cd $HOME && \
     mv phpunit.phar /usr/local/bin/phpunit
 
 #RUN phpenv install 5.3.29 not compiling
-RUN MAKEFLAGS=' -j8' phpenv install 5.4.45
-RUN MAKEFLAGS=' -j8' phpenv install 5.5.30
-RUN MAKEFLAGS=' -j8' phpenv install 5.6.16
-
-RUN rm -rf /tmp/* /var/tmp/*
+RUN MAKEFLAGS=' -j8' phpenv install 5.4.45 && rm -rf /tmp/* /var/tmp/*
+RUN MAKEFLAGS=' -j8' phpenv install 5.5.31 && rm -rf /tmp/* /var/tmp/*
+RUN MAKEFLAGS=' -j8' phpenv install 5.6.17 && rm -rf /tmp/* /var/tmp/*
 
 RUN phpenv rehash
 

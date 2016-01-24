@@ -2,12 +2,11 @@ FROM debian:jessie
 
 MAINTAINER Nikita Tarasov <nikita@mygento.ru>
 ENV DEBIAN_FRONTEND noninteractive
-ENV PATH $HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH
 
 RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/sources.list && \
     echo 'deb-src http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list && \
     echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/sources.list && \
-    apt-get -y -q update
+    apt-get -qqy update
 
 ## Install packages to compile php and Force some packages to be installed
 RUN apt-get install -qqy git wget php5 curl unzip build-essential libxml2-dev libssl-dev \
@@ -27,10 +26,10 @@ RUN cd /tmp && \
     phpbrew init && \
     echo  "\\nsource ~/.phpbrew/bashrc\\n" >> /root/.bashrc
 
-RUN phpbrew install -j $(nproc) 5.4.45 +default && phpbrew clean 5.4.45
-RUN phpbrew install -j $(nproc) 5.5.31 +default && phpbrew clean 5.5.31
-RUN phpbrew install -j $(nproc) 5.6.17 +default && phpbrew clean 5.6.17
-RUN phpbrew install -j $(nproc) 7.0.2  +default && phpbrew clean 7.0.2
+RUN phpbrew install -j $(nproc) 5.4.45 +default && phpbrew clean 5.4.45 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
+RUN phpbrew install -j $(nproc) 5.5.31 +default && phpbrew clean 5.5.31 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
+RUN phpbrew install -j $(nproc) 5.6.17 +default && phpbrew clean 5.6.17 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
+RUN phpbrew install -j $(nproc) 7.0.2  +default && phpbrew clean 7.0.2 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \

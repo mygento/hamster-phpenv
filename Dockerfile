@@ -27,22 +27,22 @@ RUN cd /tmp && \
     echo  "\\nsource ~/.phpbrew/bashrc\\n" >> /root/.bashrc
 
 RUN phpbrew install -j $(nproc) 5.4.45 +default && \
-    phpbrew clean 5.4.45 && \
+    phpbrew clean php-5.4.45 && \
     rm -R /root/.phpbrew/build/php-5.4.45 && \
     rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
     
 RUN phpbrew install -j $(nproc) 5.5.31 +default && \
-    phpbrew clean 5.5.31 && \
+    phpbrew clean php-5.5.31 && \
     rm -R /root/.phpbrew/build/php-5.5.31 && \
     rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
     
 RUN phpbrew install -j $(nproc) 5.6.17 +default && \
-    phpbrew clean 5.6.17 && \
+    phpbrew clean php-5.6.17 && \
     rm -R /root/.phpbrew/build/php-5.6.17 && \
     rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
     
 RUN phpbrew install -j $(nproc) 7.0.2 +default && \
-    phpbrew clean 7.0.2 && \
+    phpbrew clean php-7.0.2 && \
     rm -R /root/.phpbrew/build/php-7.0.2 && \
     rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
 

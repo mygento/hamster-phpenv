@@ -10,7 +10,7 @@ RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/so
     apt-get -y -q update
 
 ## Install packages to compile php and Force some packages to be installed
-RUN apt-get install -y -qq git wget php5 curl unzip build-essential libxml2-dev libssl-dev \
+RUN apt-get install -qqy git wget php5 curl unzip build-essential libxml2-dev libssl-dev \
     pkg-config libbz2-dev libreadline-dev \
     libcurl4-gnutls-dev libjpeg-dev libpng12-dev libmcrypt-dev \
     libreadline-dev libtidy-dev libxslt1-dev autoconf \
@@ -27,10 +27,10 @@ RUN cd /tmp && \
     phpbrew init && \
     echo  "\\nsource ~/.phpbrew/bashrc\\n" >> /root/.bashrc
 
-RUN phpbrew install 5.4.45 +default && phpbrew clean
-RUN phpbrew install 5.5.31 +default && phpbrew clean
-RUN phpbrew install 5.6.17 +default && phpbrew clean
-RUN phpbrew install 7.0.2 +default && phpbrew clean
+RUN phpbrew install -j $(nproc) 5.4.45 +default && phpbrew clean 5.4.45
+RUN phpbrew install -j $(nproc) 5.5.31 +default && phpbrew clean 5.5.31
+RUN phpbrew install -j $(nproc) 5.6.17 +default && phpbrew clean 5.6.17
+RUN phpbrew install -j $(nproc) 7.0.2  +default && phpbrew clean 7.0.2
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \

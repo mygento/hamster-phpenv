@@ -6,9 +6,8 @@ ENV PATH $HOME/.phpenv/bin:$HOME/.phpenv/shims:$PATH
 
 RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/sources.list && \
     echo 'deb-src http://httpredir.debian.org/debian jessie-updates main' >> /etc/apt/sources.list && \
-    echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/sources.list
-
-RUN apt-get -y -q update
+    echo 'deb-src http://security.debian.org jessie/updates main' >> /etc/apt/sources.list && \
+    apt-get -y -q update
 
 ## Install packages to compile php and Force some packages to be installed
 RUN apt-get install -y -qq git wget php5 curl unzip build-essential libxml2-dev libssl-dev \

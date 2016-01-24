@@ -19,29 +19,19 @@ RUN apt-get install -y -q git wget unzip build-essential libxml2-dev libssl-dev 
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-##
-# PHPENV.
-##
+#PHPbrew
 
-RUN rm -fR /root/.phpenv && rm -fR /tmp/phpenv && \
-    git clone https://github.com/CHH/phpenv.git /tmp/phpenv && \
-    /tmp/phpenv/bin/phpenv-install.sh && \
-    scp /tmp/phpenv/extensions/* /root/.phpenv/libexec/ && \
-    echo 'eval "$(phpenv init -)"' >> /root/.bashrc
-    
-ENV PATH /root/.phpenv/shims:/root/.phpenv/bin:$PATH
+RUN cd /tmp && \
+    curl -L -O https://raw.github.com/phpbrew/phpbrew/master/phpbrew && \
+    chmod +x phpbrew && \
+    mv phpbrew /usr/bin/phpbrew && \
+    phpbrew init && \
+    echo  "\\nsource ~/.phpbrew/bashrc\\n" >> /root/.bashrc
 
-RUN git clone https://github.com/php-build/php-build.git /root/.phpenv/plugins/php-build
-RUN /root/.phpenv/plugins/php-build/install.sh
-
-RUN rm /usr/local/share/php-build/plugins.d/apc.sh && \
-    # rm /usr/local/share/php-build/plugins.d/xdebug.sh && \
-    rm /usr/local/share/php-build/plugins.d/uprofiler.sh && \	
-    rm /usr/local/share/php-build/plugins.d/xhprof.sh && \
-    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/apc.sh && \
-    # rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xdebug.sh && \
-    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/uprofiler.sh && \
-    rm /root/.phpenv/plugins/php-build/share/php-build/plugins.d/xhprof.sh
+RUN phpbrew install 5.4.45 +default && phpbrew clean
+RUN phpbrew install 5.5.31 +default && phpbrew clean
+RUN phpbrew install 5.6.17 +default && phpbrew clean
+RUN phpbrew install 7.0.2 +default && phpbrew clean
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \
@@ -51,12 +41,3 @@ RUN cd $HOME && \
     wget https://phar.phpunit.de/phpunit.phar && \
     chmod +x phpunit.phar && \
     mv phpunit.phar /usr/local/bin/phpunit
-
-#RUN phpenv install 5.3.29 not compiling
-RUN MAKEFLAGS=' -j8' phpenv install 5.4.44 && rm -rf /tmp/* /var/tmp/*
-RUN MAKEFLAGS=' -j8' phpenv install 5.5.31 && rm -rf /tmp/* /var/tmp/*
-RUN MAKEFLAGS=' -j8' phpenv install 5.6.17 && rm -rf /tmp/* /var/tmp/*
-
-RUN phpenv rehash
-
-RUN phpenv versions

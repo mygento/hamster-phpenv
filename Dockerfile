@@ -29,7 +29,7 @@ RUN cd /tmp && \
 RUN phpbrew install -j $(nproc) 5.4.45 +default && phpbrew clean 5.4.45 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
 RUN phpbrew install -j $(nproc) 5.5.31 +default && phpbrew clean 5.5.31 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
 RUN phpbrew install -j $(nproc) 5.6.17 +default && phpbrew clean 5.6.17 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
-RUN phpbrew install -j $(nproc) 7.0.2  +default && phpbrew clean 7.0.2 && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
+RUN phpbrew install -j $(nproc) 7.0.2  +default && phpbrew clean 7.0.2  && rm -R /root/.phpbrew/distfiles && rm -R /root/.phpbrew/tmp
 
 # Install php tools (composer / phpunit)
 RUN cd $HOME && \

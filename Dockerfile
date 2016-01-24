@@ -11,8 +11,8 @@ RUN echo 'deb-src http://httpredir.debian.org/debian jessie main' >> /etc/apt/so
 RUN apt-get -y -q update
 
 ## Install packages to compile php and Force some packages to be installed
-RUN apt-get install -y -q git wget php5 curl unzip build-essential libxml2-dev libssl-dev \
-    pkg-config \
+RUN apt-get install -y -qq git wget php5 curl unzip build-essential libxml2-dev libssl-dev \
+    pkg-config libbz2-dev libreadline-dev \
     libcurl4-gnutls-dev libjpeg-dev libpng12-dev libmcrypt-dev \
     libreadline-dev libtidy-dev libxslt1-dev autoconf \
     re2c bison && \
